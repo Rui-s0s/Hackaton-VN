@@ -1,5 +1,4 @@
-﻿
-image blackout = Solid("#000")  # black screen
+﻿image blackout = Solid("#000")  # black screen
 
 default puntos_pytu = 0
 
@@ -99,29 +98,31 @@ label capitulo1:
 
     jump cap1pre1
 
-label
 
 menu cap1pre1:
-
-    set menuset 
+    set menuset  
     a "Si un algoritmo tarda 2 segundos en procesar 1 dato y 6 segundos en procesar 3 datos, su complejidad es:"
     "Lineal":
         "PLACEHOLDER"
+        jump cap1pre1
     "Exponencial":
         "PLACEHOLDER"
+        jump cap1pre1
     "Depende de la magnitud y operaciones internas":
         "CORRECTO"
         a "Si un error aparece justo antes de entregar el proyecto, ¿qué haces?"
         jump cap1pre2
 
-label cap1pre2:
-    menu:
-        "Busco culpables":
-            "PLACEHOLDER"
-        "Ignoro y entrego igual":
-            "PLACEHOLDER"
-        "Analizo el impacto y propongo una solucion rapida":
-            jump capitulo2
+menu cap1pre2:
+    set menuset
+    "Busco culpables":
+        "PLACEHOLDER"
+        jump cap1pre2
+    "Ignoro y entrego igual":
+        "PLACEHOLDER"
+        jump cap1pre2
+    "Analizo el impacto y propongo una solucion rapida":
+        jump capitulo2
 
 
 label capitulo2:
@@ -136,31 +137,34 @@ label capitulo2:
     "¿Qué es indispensable en un equipo de programación?"
     jump cap2pre1
 
-    menu:
-        "Cada quien trabaja por su cuenta":
-            ":x: Incorrecto: El caos sin guía destruye incluso al más fuerte."
-        "Comunicación clara y roles definidos":
-            ":white_check_mark: Correcto: Sin comunicación, no hay código que funcione."
-            jump p1_correcta
-        "Que nadie cuestione al líder":
-            ":x: Incorrecto: El caos sin guía destruye incluso al más fuerte."
+menu cap2pre1:
+    set menuset
+    "Cada quien trabaja por su cuenta":
+        ":x: Incorrecto: El caos sin guía destruye incluso al más fuerte."
+        jump cap2pre1
+    "Comunicación clara y roles definidos":
+        ":white_check_mark: Correcto: Sin comunicación, no hay código que funcione."
+        jump cap2pre2
+    "Que nadie cuestione al líder":
+        ":x: Incorrecto: El caos sin guía destruye incluso al más fuerte."
+        jump cap2pre1
 
 
-label cap2pre2:
+menu cap2pre2:
     # ---------------- PREGUNTA 2 ----------------
     "Encuentras un fallo que te beneficia pero afecta al proyecto. ¿Qué haces?"
-    menu:
-        "Lo uso":
-            ":x: Incorrecto: El orden se pierde cuando la ética se rompe."
-            jump cap2pre2
-        "Lo reporto":
-            ":white_check_mark: Correcto: Has ganado el poder del CONTROL."    
-            t "El orden siempre recompensa al justo."
-            "Puedes avanzar."
-            jump capitulo3
-        "Lo ignoro":
-            ":x: Incorrecto: El orden se pierde cuando la ética se rompe."
-            jump cap2pre2
+    set menuset
+    "Lo uso":
+        ":x: Incorrecto: El orden se pierde cuando la ética se rompe."
+        jump cap2pre2
+    "Lo reporto":
+        ":white_check_mark: Correcto: Has ganado el poder del CONTROL."    
+        t "El orden siempre recompensa al justo."
+        "Puedes avanzar."
+        jump capitulo3
+    "Lo ignoro":
+        ":x: Incorrecto: El orden se pierde cuando la ética se rompe."
+        jump cap2pre2
 
 
 
@@ -204,7 +208,7 @@ label capitulo4:
     g "Holanda soy Guara"
     g "¿El futuro está decidido?"
 
-    menu:
+menu cap4pre1:
         "Sí.":
             jump p1_fail_1
 
@@ -222,7 +226,7 @@ label p1_fail_1:
     "Tiene sentido."
     g "Vuelve a intentarlo."
 
-    jump capitulo4
+    jump cap4pre1
 
 label p1_fail_2:
     g "El futuro… es una de las más sutiles ilusiones que la mente humana ha inventado."
@@ -232,7 +236,7 @@ label p1_fail_2:
     hide tupac normal
     show tupac pensativo
     g "Vuelve a intentarlo."
-    jump capitulo4
+    jump cap4pre1
 
     
 
@@ -245,4 +249,3 @@ label final:
             "xd"
         "final 2":
             "xderlis"
-
