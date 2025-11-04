@@ -8,20 +8,29 @@ define t = Character("Tupa")
 define p = Character("Pytu")
 define g = Character("Guara")
 
+image arandu = "Arandu_normal.png"
+image tupa = "tupa_pensativo.png"
+image pytu = "pytu_enojado.png"
+image guara = "guara_alegre.png"
+
+
 default menuset = set()
 
 
 
 label start:
+    play music "musica_intro.mp3"
     scene blackout
 
     nrr "Dejenme darles un contexto de la situacion vale?"
     nrr "En el principio no hubo luz ni sombra, ni palabra ni eco. Solo un vacío inmenso, tan silencioso que parecía contener todos los sonidos posibles."
     nrr "De esa nada primordial surgió el primer suspiro del universo, y con él, los cuatro pilares que lo sostendrían por toda la eternidad... "
 
-    show a at left with moveinleft
+    show arandu at left with moveinleft:
+        zoom 0.5
     nrr "Arandú, la sabiduría que da forma al pensamiento"
-    show t at right with moveinright
+    show tupa at right with moveinright:
+        zoom 0.5
     nrr "Tupã, el orden que gobierna el equilibrio"
     transform slide_in:
         xpos -0.5      # start off-screen left
@@ -29,7 +38,7 @@ label start:
         linear 0.5 xpos 0.25   # move to target horizontal position
 
 
-    show p at slide_in
+    show pytu at slide_in
     nrr "Pytû, el caos que engendra movimiento"
     
     transform slide_in_r:
@@ -37,18 +46,22 @@ label start:
         ypos 0       # vertical center
         linear 0.5 xpos 0.55  # move to target horizontal position
 
-    show g at slide_in_r  # middle-right
+    show guara at slide_in_r:  # middle-right
+        zoom 1.2
     nrr "y Guará, el destino que entrelaza todo lo que fue y será."
 
     nrr "Así comenzó la historia del cosmos, cuando el silencio decidió hablar."
     nrr "Que esperara a nuestro protagonista en este mundo tan particular?"
-
+    stop music
     jump capitulo1
 
 label capitulo1:
-
+    scene blackout
+    play music "univero_intro.mp3" noloop
+    centered "=== CAPÍTULO 1 — ARANDU, DIOS DEL SABIDURIA ==="
+    stop music
     # Start with a black screen
-    scene bg wakeup
+    scene espacio
     show blackout onlayer screens
     $ renpy.with_statement(None)
 
@@ -83,7 +96,8 @@ label capitulo1:
 
 
             
-    show Arandu
+    show arandu at center:
+        zoom 0.5
     with dissolve
     with Fade(2.0, 0.0, 0.0)
     "Que isso?!"
@@ -110,11 +124,11 @@ menu cap1pre1:
         jump cap1pre1
     "Depende de la magnitud y operaciones internas":
         "CORRECTO"
-        a "Si un error aparece justo antes de entregar el proyecto, ¿qué haces?"
         jump cap1pre2
 
 menu cap1pre2:
     set menuset
+    a "Si un error aparece justo antes de entregar el proyecto, ¿qué haces?"
     "Busco culpables":
         "PLACEHOLDER"
         jump cap1pre2
@@ -122,16 +136,41 @@ menu cap1pre2:
         "PLACEHOLDER"
         jump cap1pre2
     "Analizo el impacto y propongo una solucion rapida":
+        a "Podi pasar"
         jump capitulo2
 
 
 label capitulo2:
+    play music "univero_intro.mp3" noloop
+    scene blackout
+    centered "=== CAPÍTULO 2 — TUPÃ, DIOS DEL ORDEN ==="
+    stop music
     scene espacio
     with fade
 
-    centered "=== CAPÍTULO 2 — TUPÃ, DIOS DEL ORDEN ==="
-    
-    show t at center
+    show expression Solid("#FFFFFF") as flash
+    with Pause(0.1)
+    hide flash
+    with Pause(0.1)
+    show expression Solid("#FFFFFF") as flash
+    with Pause(0.1)
+    hide flash
+    with Pause(0.1)
+    # --------------------------
+    # Lightning explanation:
+    # 'Solid("#FFFFFF")' is a completely white screen.
+    # We 'show' it briefly to simulate a flash.
+    # 'with Pause(0.1)' controls how long the flash appears.
+    # Hiding it and flashing again simulates a second lightning strike.
+    # --------------------------
+
+
+            
+    show tupa at center:
+        zoom 0.5
+    with dissolve
+
+
     t "El orden protege. Sin reglas, todo se destruye."
     # ---------------- PREGUNTA 1 ----------------
     "¿Qué es indispensable en un equipo de programación?"
@@ -172,6 +211,34 @@ menu cap2pre2:
 
 
 label capitulo3:
+    play music "univero_intro.mp3" noloop
+    scene blackout
+    centered "=== CAPÍTULO 3 — PYTU, DIOS DEL CAOS ==="
+    stop music
+    scene espacio
+    with fade
+
+    show expression Solid("#FFFFFF") as flash
+    with Pause(0.1)
+    hide flash
+    with Pause(0.1)
+    show expression Solid("#FFFFFF") as flash
+    with Pause(0.1)
+    hide flash
+    with Pause(0.1)
+    # --------------------------
+    # Lightning explanation:
+    # 'Solid("#FFFFFF")' is a completely white screen.
+    # We 'show' it briefly to simulate a flash.
+    # 'with Pause(0.1)' controls how long the flash appears.
+    # Hiding it and flashing again simulates a second lightning strike.
+    # --------------------------
+
+
+            
+    show pytu at center:
+        zoom 1.1
+    with dissolve
     p "Buenas caballero, que te trae por aqui?"
     "Tenia mucho miedo, no me podia mover..."
     p "Que pasa? Tanto miedo doy? No importa, sabes para que estas aqui no?"
@@ -204,7 +271,35 @@ label capitulo3:
     return
 
 default puntos_guara = 0
+
 label capitulo4:
+    play music "univero_intro.mp3" noloop
+    scene blackout
+    centered "=== CAPÍTULO 4 — GUARA, DIOS DEL DESTINO ==="
+    stop music
+    scene espacio
+    with fade
+
+    show expression Solid("#FFFFFF") as flash
+    with Pause(0.1)
+    hide flash
+    with Pause(0.1)
+    show expression Solid("#FFFFFF") as flash
+    with Pause(0.1)
+    hide flash
+    with Pause(0.1)
+    # --------------------------
+    # Lightning explanation:
+    # 'Solid("#FFFFFF")' is a completely white screen.
+    # We 'show' it briefly to simulate a flash.
+    # 'with Pause(0.1)' controls how long the flash appears.
+    # Hiding it and flashing again simulates a second lightning strike.
+    # --------------------------
+            
+    show guara at center:
+        zoom 1.4
+    with dissolve
+
     g "Holanda soy Guara"
     g "¿El futuro está decidido?"
 
@@ -225,7 +320,6 @@ label p1_fail_1:
     g "Significa que cada quien es el propio arquitecto de su futuro..."
     "Tiene sentido."
     g "Vuelve a intentarlo."
-
     jump cap4pre1
 
 label p1_fail_2:
@@ -233,8 +327,6 @@ label p1_fail_2:
     g "No existe como un lugar al que vayamos, ni como un tiempo que esté aguardándonos..."
     g "... el futuro es apenas una proyección de la conciencia, un intento de darle forma a lo que todavía no es."
     "Fua... Me dejo pensando"
-    hide tupac normal
-    show tupac pensativo
     g "Vuelve a intentarlo."
     jump cap4pre1
 
@@ -247,5 +339,7 @@ label final:
     menu:
         "FINAL 1":
             "xd"
+            $ renpy.movie_cutscene("images/1762216753932.webm")
+            "This text waits until the video finishes."
         "final 2":
             "xderlis"
