@@ -19,8 +19,10 @@ default menuset = set()
 
 
 label start:
-    play music "musica_intro.mp3"
     scene blackout
+    with fade
+    play music "musica_intro.mp3"
+    scene start
 
     nrr "Dejenme darles un contexto de la situacion vale?"
     nrr "En el principio no hubo luz ni sombra, ni palabra ni eco. Solo un vacío inmenso, tan silencioso que parecía contener todos los sonidos posibles."
@@ -108,7 +110,9 @@ label capitulo1:
     #    - next two parameters: fade-out duration and alpha, not used here
     # --------------------------
     a "No temas. No estoy aquí para dominarte. Estoy aquí para abrir tus ojos"
-    
+    a "Voy a hacerte unas preguntas y las respuestas que des determinaran tu destino"
+    "No entiendo bien la situacion pero supongo que no tengo opcion"
+
 
     jump cap1pre1
 
@@ -117,26 +121,26 @@ menu cap1pre1:
     set menuset  
     a "Si un algoritmo tarda 2 segundos en procesar 1 dato y 6 segundos en procesar 3 datos, su complejidad es:"
     "Lineal":
-        "PLACEHOLDER"
+        a "Incorrecto. No puedes asumir la complejidad sin conocer más sobre el algoritmo."
         jump cap1pre1
     "Exponencial":
-        "PLACEHOLDER"
+        a "Incorrecto. No puedes asumir la complejidad sin conocer más sobre el algoritmo."
         jump cap1pre1
     "Depende de la magnitud y operaciones internas":
-        "CORRECTO"
+        a "CORRECTO, has comprendido que no se puede determinar la complejidad solo con esos datos."
         jump cap1pre2
 
 menu cap1pre2:
     set menuset
     a "Si un error aparece justo antes de entregar el proyecto, ¿qué haces?"
     "Busco culpables":
-        "PLACEHOLDER"
+        "Incorrecto, eso solo trae mas problemas"
         jump cap1pre2
     "Ignoro y entrego igual":
-        "PLACEHOLDER"
+        "Incorrecto, eso solo trae mas problemas"
         jump cap1pre2
     "Analizo el impacto y propongo una solucion rapida":
-        a "Podi pasar"
+        a "CORRECTO, es la respuesta mas responsable"
         jump capitulo2
 
 
@@ -179,13 +183,13 @@ label capitulo2:
 menu cap2pre1:
     set menuset
     "Cada quien trabaja por su cuenta":
-        ":x: Incorrecto: El caos sin guía destruye incluso al más fuerte."
+        t "Incorrecto: El caos sin guía destruye incluso al más fuerte."
         jump cap2pre1
     "Comunicación clara y roles definidos":
-        ":white_check_mark: Correcto: Sin comunicación, no hay código que funcione."
+        t "Correcto: Sin comunicación, no hay código que funcione."
         jump cap2pre2
     "Que nadie cuestione al líder":
-        ":x: Incorrecto: El caos sin guía destruye incluso al más fuerte."
+        t "Incorrecto: El caos sin guía destruye incluso al más fuerte."
         jump cap2pre1
 
 
@@ -194,15 +198,15 @@ menu cap2pre2:
     "Encuentras un fallo que te beneficia pero afecta al proyecto. ¿Qué haces?"
     set menuset
     "Lo uso":
-        ":x: Incorrecto: El orden se pierde cuando la ética se rompe."
+        t "El orden se pierde cuando la ética se rompe."
         jump cap2pre2
     "Lo reporto":
-        ":white_check_mark: Correcto: Has ganado el poder del CONTROL."    
+        t "Correcto: Has ganado el poder del CONTROL."    
         t "El orden siempre recompensa al justo."
-        "Puedes avanzar."
+        t "Puedes avanzar."
         jump capitulo3
     "Lo ignoro":
-        ":x: Incorrecto: El orden se pierde cuando la ética se rompe."
+        t "Incorrecto: El orden se pierde cuando la ética se rompe."
         jump cap2pre2
 
 
@@ -300,20 +304,22 @@ label capitulo4:
         zoom 1.4
     with dissolve
 
-    g "Holanda soy Guara"
-    g "¿El futuro está decidido?"
+    g "Yo no soy un mero observador; soy el tejedor y el cortador de tu hilo"
+    g "Cada paso que has dado, cada aliento que tomas... todo converge aquí, ahora."
+    g "Mi pregunta es... ¿El futuro está decidido?"
 
 menu cap4pre1:
-        "Sí.":
-            jump p1_fail_1
+    set menuset
+    "Sí.":
+        jump p1_fail_1
 
-        "No, lo decido yo.":
-            $ puntos_guara +=1
-            g "Movimiento naranja el futuro esta en tus manos."
-            jump final
+    "No, lo decido yo.":
+        $ puntos_guara +=1
+        g "Movimiento naranja el futuro esta en tus manos."
+        jump final
 
-        "¿Que es el futuro?":
-            jump p1_fail_2
+    "¿Que es el futuro?":
+        jump p1_fail_2
 
 label p1_fail_1:
     g "“Faber est suae quisque fortunae.” Appius Claudius Caecus. III A.C."
@@ -334,12 +340,20 @@ label p1_fail_2:
 
 
 label final:
-    "WAZAAAA"   
-    g "Para restaurar el equilibrio debes..."
+    scene blackout
+    nrr "Tu sabiduria te ha llevado a este punto, has pasado por mucho y ahora tienes que tomar una ultima decision"
+    centered "Para restaurar el equilibrio debes..."
     menu:
-        "FINAL 1":
-            "xd"
+        "DESTRUIR TODO":
+            "Wow, en serio?"
+            $ renpy.movie_cutscene("images/fire-earth.webm")
+            scene blackout
+            with fade
+            "Felicidades..."
+            
+        "RECONSTRUIR EL UNIVERSO":
+            "Un mundo nuevo... una nueva oportunidad..."
             $ renpy.movie_cutscene("images/1762216753932.webm")
-            "This text waits until the video finishes."
-        "final 2":
-            "xderlis"
+            scene blackout
+            with fade
+            centered "FELICIDADES, GRACIAS POR JUGAR"
