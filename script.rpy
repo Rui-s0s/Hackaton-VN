@@ -1,12 +1,13 @@
-﻿image blackout = Solid("#000")  # black screen
+﻿image blackout = Solid("#000")  # Pantalla negra
 
+
+ # Personajes con sus imagenes
 default puntos_pytu = 0
-
-define nrr = Character("Narrador")
-define a = Character(("Arandu"))
-define t = Character("Tupa")
-define p = Character("Pytu")
-define g = Character("Guara")
+define nrr = Character("Narrador", color = "#ffffcc")
+define a = Character("Arandu", color = "#f82b10")
+define t = Character("Tupa", color = "#1ad1ff")
+define p = Character("Pytu",color = "#33ffbb")
+define g = Character("Guara", color = "#66ffff")
 
 image arandu = "Arandu_normal.png"
 image tupa = "tupa_pensativo.png"
@@ -17,17 +18,23 @@ image guara = "guara_alegre.png"
 default menuset = set()
 
 
-
 label start:
     scene blackout
     with fade
     play music "musica_intro.mp3"
     scene start
+    $ nombre_jugador = renpy.input("Escribe tu nombre")
 
-    nrr "Dejenme darles un contexto de la situacion vale?"
+    if nombre_jugador == " ":
+        $ nombre_jugador = "Jugador"
+
+        "Mucho gusto [nombre_jugador]."
+
+    nrr "Dejenme ponerte en contexto [nombre_jugador] vale?"
     nrr "En el principio no hubo luz ni sombra, ni palabra ni eco. Solo un vacío inmenso, tan silencioso que parecía contener todos los sonidos posibles."
     nrr "De esa nada primordial surgió el primer suspiro del universo, y con él, los cuatro pilares que lo sostendrían por toda la eternidad... "
-
+    
+    #--- Mostramos uno a uno los dioses
     show arandu at left with moveinleft:
         zoom 0.5
     nrr "Arandú, la sabiduría que da forma al pensamiento"
@@ -38,7 +45,6 @@ label start:
         xpos -0.5      # start off-screen left
         ypos 0       # vertical center
         linear 0.5 xpos 0.25   # move to target horizontal position
-
 
     show pytu at slide_in
     nrr "Pytû, el caos que engendra movimiento"
@@ -51,35 +57,35 @@ label start:
     show guara at slide_in_r:  # middle-right
         zoom 1.2
     nrr "y Guará, el destino que entrelaza todo lo que fue y será."
+    #---
 
     nrr "Así comenzó la historia del cosmos, cuando el silencio decidió hablar."
     nrr "Que esperara a nuestro protagonista en este mundo tan particular?"
     stop music
     jump capitulo1
 
+
 label capitulo1:
     scene blackout
     play music "univero_intro.mp3" noloop
     centered "=== CAPÍTULO 1 — ARANDU, DIOS DEL SABIDURIA ==="
     stop music
-    # Start with a black screen
     scene espacio
     show blackout onlayer screens
     $ renpy.with_statement(None)
 
-    # Blinking effect
+    #--- Efecto de parpadeo cuando el jugador despierta
     show blackout onlayer screens:
         alpha 1.0
-        linear 0.4 alpha 0.0    # quick open (first blink)
-        linear 0.6 alpha 1.0    # blink shut again
-        linear 3.0 alpha 0.0    # long slow fade — eyes fully open
+        linear 0.4 alpha 0.0    
+        linear 0.6 alpha 1.0    
+        linear 3.0 alpha 0.0   
     with None
-
-
+    #---
     nrr "Lentamente abres los ojos..."
-    "Ugh... Que hora es? Donde estoy?"
+    "[nombre_jugador]" "Ugh... Que hora es? Donde estoy?"
 
-    # --- Lightning flash effect ---
+    #--- Efecto de rayo 
     show expression Solid("#FFFFFF") as flash
     with Pause(0.1)
     hide flash
@@ -88,35 +94,22 @@ label capitulo1:
     with Pause(0.1)
     hide flash
     with Pause(0.1)
-    # --------------------------
-    # Lightning explanation:
-    # 'Solid("#FFFFFF")' is a completely white screen.
-    # We 'show' it briefly to simulate a flash.
-    # 'with Pause(0.1)' controls how long the flash appears.
-    # Hiding it and flashing again simulates a second lightning strike.
-    # --------------------------
-
-
+    #---
             
     show arandu at center:
         zoom 0.5
     with dissolve
     with Fade(2.0, 0.0, 0.0)
-    "Que isso?!"
-    # --------------------------
-    # 'show mysterious_object at center' puts your object/character sprite on screen.
-    # 'with Fade(2.0, 0.0, 0.0)' gradually makes it appear over 2 seconds:
-    #    - first parameter (2.0): duration of the fade-in
-    #    - next two parameters: fade-out duration and alpha, not used here
-    # --------------------------
+    "[nombre_jugador]" "Que es eso?!"
+
     a "No temas. No estoy aquí para dominarte. Estoy aquí para abrir tus ojos"
     a "Voy a hacerte unas preguntas y las respuestas que des determinaran tu destino"
-    "No entiendo bien la situacion pero supongo que no tengo opcion"
+    "[nombre_jugador]" "No entiendo bien la situacion pero supongo que no tengo opcion"
 
 
     jump cap1pre1
 
-
+#--- Preguntas del primer capitulo
 menu cap1pre1:
     set menuset  
     a "Si un algoritmo tarda 2 segundos en procesar 1 dato y 6 segundos en procesar 3 datos, su complejidad es:"
@@ -142,7 +135,7 @@ menu cap1pre2:
     "Analizo el impacto y propongo una solucion rapida":
         a "CORRECTO, es la respuesta mas responsable"
         jump capitulo2
-
+#---
 
 label capitulo2:
     play music "univero_intro.mp3" noloop
@@ -160,13 +153,7 @@ label capitulo2:
     with Pause(0.1)
     hide flash
     with Pause(0.1)
-    # --------------------------
-    # Lightning explanation:
-    # 'Solid("#FFFFFF")' is a completely white screen.
-    # We 'show' it briefly to simulate a flash.
-    # 'with Pause(0.1)' controls how long the flash appears.
-    # Hiding it and flashing again simulates a second lightning strike.
-    # --------------------------
+
 
 
             
@@ -176,10 +163,10 @@ label capitulo2:
 
 
     t "El orden protege. Sin reglas, todo se destruye."
-    # ---------------- PREGUNTA 1 ----------------
-    "¿Qué es indispensable en un equipo de programación?"
+    t "¿Qué es indispensable en un equipo de programación?"
     jump cap2pre1
 
+#--- Preguntas del segundo capitulo
 menu cap2pre1:
     set menuset
     "Cada quien trabaja por su cuenta":
@@ -194,8 +181,7 @@ menu cap2pre1:
 
 
 menu cap2pre2:
-    # ---------------- PREGUNTA 2 ----------------
-    "Encuentras un fallo que te beneficia pero afecta al proyecto. ¿Qué haces?"
+    t "Encuentras un fallo que te beneficia pero afecta al proyecto. ¿Qué haces?"
     set menuset
     "Lo uso":
         t "El orden se pierde cuando la ética se rompe."
@@ -208,10 +194,7 @@ menu cap2pre2:
     "Lo ignoro":
         t "Incorrecto: El orden se pierde cuando la ética se rompe."
         jump cap2pre2
-
-
-
-    
+#---
 
 
 label capitulo3:
@@ -230,13 +213,6 @@ label capitulo3:
     with Pause(0.1)
     hide flash
     with Pause(0.1)
-    # --------------------------
-    # Lightning explanation:
-    # 'Solid("#FFFFFF")' is a completely white screen.
-    # We 'show' it briefly to simulate a flash.
-    # 'with Pause(0.1)' controls how long the flash appears.
-    # Hiding it and flashing again simulates a second lightning strike.
-    # --------------------------
 
 
             
@@ -249,6 +225,7 @@ label capitulo3:
     "Asiento temeroso"
     p "Es un placer oir eso, ahora, en que te guias para tomar decisiones?"
 
+#--- Preguntas del tercer capitulo
     menu:
         "En mis impulsos":
             p "PERFECTO justo lo que queria escuchar"
@@ -271,72 +248,122 @@ label capitulo3:
         jump capitulo4
     else:
         p "Que pena, te vas a quedar encerrado conmigo"
-
     return
-
-default puntos_guara = 0
+#---
 
 label capitulo4:
     play music "univero_intro.mp3" noloop
     scene blackout
-    centered "=== CAPÍTULO 4 — GUARA, DIOS DEL DESTINO ==="
-    stop music
-    scene espacio
     with fade
+    centered "=== CAPÍTULO 4 — GUARÁ, DIOS DEL DESTINO ===" 
+    scene espacio
+    stop music
+    show guara
+    with dissolve
+    show guara at right 
+    with moveinright
+    g "Todo está escrito. Incluso tú."
 
-    show expression Solid("#FFFFFF") as flash
-    with Pause(0.1)
-    hide flash
-    with Pause(0.1)
-    show expression Solid("#FFFFFF") as flash
-    with Pause(0.1)
-    hide flash
-    with Pause(0.1)
-    # --------------------------
-    # Lightning explanation:
-    # 'Solid("#FFFFFF")' is a completely white screen.
-    # We 'show' it briefly to simulate a flash.
-    # 'with Pause(0.1)' controls how long the flash appears.
-    # Hiding it and flashing again simulates a second lightning strike.
-    # --------------------------
-            
-    show guara at center:
-        zoom 1.4
+
+label antes_p1:
+    show guara at right
     with dissolve
 
-    g "Yo no soy un mero observador; soy el tejedor y el cortador de tu hilo"
-    g "Cada paso que has dado, cada aliento que tomas... todo converge aquí, ahora."
-    g "Mi pregunta es... ¿El futuro está decidido?"
-
-menu cap4pre1:
+#--- Preguntas del cuarto capitulo
+menu p1: 
     set menuset
-    "Sí.":
+    g "Una mujer busca venganza por la muerte de su hijo. Mata al asesino y deja huérfano a otro niño. ¿Qué ha logrado?"
+    "Justicia":
         jump p1_fail_1
-
-    "No, lo decido yo.":
-        $ puntos_guara +=1
-        g "Movimiento naranja el futuro esta en tus manos."
-        jump final
-
-    "¿Que es el futuro?":
+    "Equilibrio":
         jump p1_fail_2
+    "Continuar con el ciclo que la llevo a esta situación":
+        jump p1_ok
 
 label p1_fail_1:
+    hide guara
+    show guara at right 
+    with dissolve
+    g "¿Justicia? Hm... así lo creen los mortales, cuando el dolor los ciega."
+    g "¿Puede llamarse justo un acto que engendra el mismo llanto que intenta apagar?"
+    jump antes_p1
+
+label p1_fail_2:
+    hide guara
+    show guara at right 
+    with dissolve
+    g "Equilibrio... una palabra noble, pero mal comprendida.
+    Lo que ella hizo no fue balancear el mundo, sino repetirlo."
+    g "El orden verdadero no surge del reflejo del dolor, sino de su ruptura."
+    jump antes_p1
+    
+label p1_ok:
+    hide guara at right
+    show guara at center
+    with move
+    g "Ah... ves más allá del velo."
+    g "El hilo que una vez la ató al dolor, ella misma lo tejió de nuevo."
+    g "Así nacen los bucles eternos: de corazones que confunden justicia con redención"
+    g "Solo cuando el odio se extingue, el destino encuentra un nuevo patrón."
+    hide guara at center
+    show guara at right
+    with move
+    jump p2
+
+
+menu p2:
+    
+    set menuset
+    g "¿El futuro está decidido?"
+
+    "Sí.":
+        jump p2_fail_1
+
+    "No, lo decido yo.":
+        jump p2_ok
+
+    "¿Que es el futuro?":
+        jump p2_fail_2
+
+label p2_fail_1:
     g "“Faber est suae quisque fortunae.” Appius Claudius Caecus. III A.C."
     g "Significa que cada quien es el propio arquitecto de su futuro..."
     "Tiene sentido."
     g "Vuelve a intentarlo."
-    jump cap4pre1
 
-label p1_fail_2:
+    jump p2
+label p2_fail_2:
     g "El futuro… es una de las más sutiles ilusiones que la mente humana ha inventado."
     g "No existe como un lugar al que vayamos, ni como un tiempo que esté aguardándonos..."
     g "... el futuro es apenas una proyección de la conciencia, un intento de darle forma a lo que todavía no es."
     "Fua... Me dejo pensando"
+    hide guara
+    show guara at right
+    with dissolve
     g "Vuelve a intentarlo."
-    jump cap4pre1
+    jump p2
 
-    
+label p2_ok:
+    hide guara at right
+    show guara at center
+    with move
+
+    g "Es correcto"
+    hide guara 
+    show guara at right
+    with dissolve
+    g "Bueno..."
+    g "Creo que haz llegado al final de tu viaje"
+    g "Te queda una ultima decisión por tomar, y será una para definir el destino no solo tuyo sino..."
+    show guara at right
+    with dissolve
+    hide guara with dissolve
+    show guara at center:
+        zoom 1.5
+    g "del MUNDO."
+    jump final
+#---
+
 
 
 label final:
@@ -346,10 +373,11 @@ label final:
     menu:
         "DESTRUIR TODO":
             "Wow, en serio?"
-            $ renpy.movie_cutscene("images/fire-earth.webm")
+            $ renpy.movie_cutscene("images/VID_20251105_134206.webm")
             scene blackout
             with fade
             "Felicidades..."
+            return
             
         "RECONSTRUIR EL UNIVERSO":
             "Un mundo nuevo... una nueva oportunidad..."
@@ -357,3 +385,7 @@ label final:
             scene blackout
             with fade
             centered "FELICIDADES, GRACIAS POR JUGAR"
+            return 
+
+# label secreto:
+#     $ renpy.movie_cutscene("images/shookai-umamusume.webm")

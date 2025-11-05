@@ -12,7 +12,7 @@
 ##
 ## The _() surrounding the string marks it as eligible for translation.
 
-define config.name = _("Carrusel")
+define config.name = _("Irundy Jara")
 
 
 ## Determines if the title given above is shown on the main menu screen. Set
@@ -25,6 +25,7 @@ define gui.show_name = True
 
 define config.version = "1.0"
 
+define config.developer = True
 
 ## Text that is placed on the game's about screen. Place the text between the
 ## triple-quotes, and leave a blank line between paragraphs.
